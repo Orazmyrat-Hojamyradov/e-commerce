@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/card";
 import { formatCurrency } from "@/lib/formatters";
 import Image from "next/image";
-import Link from "next/link";
+import { AddToCartButton } from "./AddToCartBtn";
 
 type ProductCardProps = {
   id: string;
@@ -39,9 +39,7 @@ export function ProductCard({
         <p className="line-clamp-4">{descryption}</p>
       </CardContent>
       <CardFooter>
-        <Button asChild size="lg" className="w-full">
-          <Link href={`/products/${id}/purchase`}>Add to cart</Link>
-        </Button>
+        <AddToCartButton productId={id} />
       </CardFooter>
     </Card>
   );

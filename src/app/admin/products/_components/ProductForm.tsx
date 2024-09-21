@@ -51,7 +51,7 @@ export default function ProductForm({ product }: { product?: Product | null }) {
         )}
       </div>
       <div className="space-y-2">
-        <Label htmlFor="descryption">Descryption</Label>
+        <Label htmlFor="descryption">Description</Label>
         <Textarea
           id="descryption"
           name="descryption"

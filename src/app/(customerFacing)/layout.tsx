@@ -1,5 +1,7 @@
 import React from "react";
-import { Nav, NavLink } from "../components/Nav";
+import { Nav } from "../components/Nav";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export const dynamic = "force-dynamic";
 
@@ -8,12 +10,12 @@ export default function Layout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <>
-      <Nav>
-        <NavLink href="/">Home</NavLink>
-        <NavLink href="/products">Products</NavLink>
-        <NavLink href="/orders">My Cart</NavLink>
-      </Nav>
-      <div className="w-full my-6 px-6">{children}</div>
+      <Nav />
+
+      <div className="w-full my-6 px-6">
+        {children}
+        <ToastContainer />
+      </div>
     </>
   );
 }
