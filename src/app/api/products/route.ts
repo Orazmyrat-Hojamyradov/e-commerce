@@ -8,9 +8,10 @@ export default async function handler(
   res: NextApiResponse
 ) {
   if (req.method === "GET") {
-    const products = await db.product.findMany({
-      where: { isAvailableForPurchase: true },
-    });
+    const products =
+      (await db.product.findMany({
+        where: { isAvailableForPurchase: true },
+      })) || [];
     res.status(200).json(products);
   } else {
     res.status(405).json({ message: "Method not allowed" });
