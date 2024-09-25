@@ -1,12 +1,9 @@
+import { NavLink } from "../components/NavLink";
 import Link from "next/link";
-import React from "react";
-import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import AuthButton from "./AuthButton";
-import CartButton from "./CartButton";
-import { NavLink } from "./NavLink";
+import { Button } from "@/components/ui/button";
 
-export function Nav() {
+export default function NavAdmin() {
   return (
     <nav className="border-b">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -18,14 +15,13 @@ export function Nav() {
           </div>
           <div className="hidden md:block">
             <div className="ml-10 flex items-baseline space-x-4 ">
-              <NavLink href="/">Home</NavLink>
-              <NavLink href="/products">Products</NavLink>
-              <CartButton />
-              <AuthButton />
+              <NavLink href="/admin">Dashboard</NavLink>
+              <NavLink href="/admin/products">Products</NavLink>
+              <NavLink href="/admin/users">Customers</NavLink>
+              <NavLink href="/admin/orders">Sales</NavLink>
             </div>
           </div>
           <div className="flex flex-row gap-3 justify-center items-center md:hidden">
-            <CartButton />
             <Sheet>
               <SheetTrigger asChild>
                 <div className="flex flex-row items-center justify-center gap-3">
@@ -52,9 +48,10 @@ export function Nav() {
               </SheetTrigger>
               <SheetContent side="right" className="w-[300px] sm:w-[400px]">
                 <nav className="flex flex-col gap-4 mt-5 text-center  font-bold">
-                  <NavLink href="/">Home</NavLink>
-                  <NavLink href="/products">Products</NavLink>
-                  <AuthButton />
+                  <NavLink href="/admin">Dashboard</NavLink>
+                  <NavLink href="/admin/products">Products</NavLink>
+                  <NavLink href="/admin/users">Customers</NavLink>
+                  <NavLink href="/admin/orders">Sales</NavLink>
                 </nav>
               </SheetContent>
             </Sheet>

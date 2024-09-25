@@ -9,9 +9,9 @@ import {
 } from "@/components/ui/card";
 import { formatCurrency } from "@/lib/formatters";
 import Image from "next/image";
-import { AddToCartButton } from "./AddToCartBtn";
+import AddToCartButton from "./AddToCartBtn";
 
-type ProductCardProps = {
+export type ProductCardProps = {
   id: string;
   name: string;
   priceInCents: number;
@@ -19,27 +19,29 @@ type ProductCardProps = {
   imagePath: string;
 };
 
-export function ProductCard({
-  id,
-  name,
-  priceInCents,
-  descryption,
-  imagePath,
-}: ProductCardProps) {
+export function ProductCard(data: ProductCardProps) {
   return (
     <Card className="flex overflow-hidden flex-col ">
-      <div className="relative w-full h-auto aspect-video">
-        <Image className="p-4" priority src={imagePath} fill alt={name} />
+      <div className="relative w-[60%] h-auto m-auto aspect-square">
+        <Image
+          className="p-4"
+          priority
+          src={data.imagePath}
+          fill
+          alt={data.name}
+        />
       </div>
       <CardHeader>
-        <CardTitle>{name}</CardTitle>
-        <CardDescription>{formatCurrency(priceInCents / 100)}</CardDescription>
+        <CardTitle>{data.name}</CardTitle>
+        <CardDescription>
+          {formatCurrency(data.priceInCents / 100)}
+        </CardDescription>
       </CardHeader>
       <CardContent className="flex-grow">
-        <p className="line-clamp-4">{descryption}</p>
+        <p className="line-clamp-4">{data.descryption}</p>
       </CardContent>
       <CardFooter>
-        <AddToCartButton productId={id} />
+        <AddToCartButton product={data} />
       </CardFooter>
     </Card>
   );
