@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { useCartStore } from "@/lib/storeCart";
+import Image from "next/image";
 
 export default function CartItem({ product }: { product: any }) {
   const removeFromCart = useCartStore((state) => state.removeFromCart);
@@ -11,7 +12,8 @@ export default function CartItem({ product }: { product: any }) {
   return (
     <div className="w-full bg-black text-white flex flex-row justify-between items-center gap-2 p-3 rounded-2xl">
       <div className="bg-gray-200 w-[80px] h-[80px] self-start hidden md:block rounded-xl">
-        <img
+        <Image
+          sizes="fill"
           className="rounded-xl h-full w-full p-2"
           src={product.imagePath}
           alt={product.name}
