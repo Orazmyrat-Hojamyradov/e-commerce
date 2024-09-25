@@ -5,8 +5,6 @@ import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 
-const NEXTAUTH_SECRET =
-  "f4370d7db38f960b8e5b12863567103e59b1eef2dfd0840f21bc305e43c64b3a";
 const GITHUB_ID = "Ov23liKzd4OZFPD4tsKB";
 const GITHUB_SECRET = "504ee2796b50f840b8af74e885ecc0cf4e76490f";
 const GOOGLE_ID =
@@ -14,7 +12,7 @@ const GOOGLE_ID =
 const GOOGLE_SECRET = "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";
 
 export const authOptions: AuthOptions = {
-  secret: NEXTAUTH_SECRET,
+  secret: process.env.NEXTAUTH_SECRET,
   pages: {
     signIn: "/auth/signin",
   },
