@@ -13,15 +13,18 @@ export default function AuthButton() {
           onClick={() => {
             signOut();
           }}
-          className="text-lg m-2 rounded-3xl transition-all p-2"
+          className="w-[95%] text-lg rounded-3xl transition-all p-2"
           asChild
         >
-          <Link className="h-full m-2" href="/">
+          <Link className="h-full" href="/">
             Sign Out
           </Link>
         </Button>
       ) : (
-        <Button className=" text-lg m-2 rounded-3xl transition-all p-2" asChild>
+        <Button
+          className="w-[95%] text-lg  rounded-3xl transition-all p-2"
+          asChild
+        >
           <Link href="/auth/signup">Sign Up</Link>
         </Button>
       )}

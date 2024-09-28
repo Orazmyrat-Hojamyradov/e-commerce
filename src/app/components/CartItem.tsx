@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { useCartStore } from "@/lib/storeCart";
+import { X } from "lucide-react";
 import Image from "next/image";
 
 export default function CartItem({ product }: { product: any }) {
@@ -10,18 +11,19 @@ export default function CartItem({ product }: { product: any }) {
   }
 
   return (
-    <div className="w-full bg-black text-white flex flex-row justify-between items-center gap-2 p-3 rounded-2xl">
-      <div className="bg-gray-200 w-[80px] h-[80px] self-start hidden md:block rounded-xl">
+    <div className="relative w-full bg-black text-white flex flex-row justify-between items-center gap-2 p-3 rounded-2xl">
+      <div className="bg-gray-800 w-[85px] h-[85px] my-auto self-start hidden  md:block rounded-xl">
         <Image
-          width={80}
-          className="rounded-xl h-full w-full p-2"
+          width={85}
+          height={85}
+          className="rounded-xl h-full w-full"
           src={product.imagePath}
           alt={product.name}
         />
       </div>
-      <div className="flex flex-col items-center justify-center gap-1 flex-1">
-        <span className="font-bold">{product.name}</span>
-        <span>${product.priceInCents / 100}</span>
+      <div className="flex flex-col items-left justify-center gap-1 flex-1">
+        <span className="font-bold text-sm  md:text-xl">{product.name}</span>
+        <span className="font-bold text-sm">${product.priceInCents / 100}</span>
         <p>{product.descryption || "No description"}</p>
       </div>
       <Button
@@ -30,9 +32,9 @@ export default function CartItem({ product }: { product: any }) {
         }}
         asChild
         variant="destructive"
-        className="w-[35px] h-[35px] cursor-pointer"
+        className="w-[23px] h-[23px] absolute top-2 right-2 p-0 cursor-pointer"
       >
-        <span className="font-bold text-xl">X</span>
+        <X size={20} />
       </Button>
     </div>
   );

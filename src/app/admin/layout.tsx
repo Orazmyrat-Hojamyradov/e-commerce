@@ -7,9 +7,9 @@ export default function AdminLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <>
+    <div>
       <NavAdmin />
       <div className="container my-6 px-6">{children}</div>
-    </>
+    </div>
   );
 }

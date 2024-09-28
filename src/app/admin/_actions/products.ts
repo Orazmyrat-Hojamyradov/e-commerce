@@ -30,7 +30,7 @@ export async function addProduct(prevState: unknown, formData: FormData) {
   await fs.mkdir("products", { recursive: true });
   // await fs.mkdir(process.cwd(), { recursive: true });
   const filePath = `products/${crypto.randomUUID()}-${data.file.name}`;
-  await fs.writeFile(process.cwd(), Buffer.from(await data.file.arrayBuffer()));
+  await fs.writeFile(filePath, Buffer.from(await data.file.arrayBuffer()));
 
   await fs.mkdir("public/products", { recursive: true });
   const imagePath = `/products/${crypto.randomUUID()}-${data.image.name}`;

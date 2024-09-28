@@ -1,10 +1,30 @@
 import Link from "next/link";
 import React from "react";
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 import AuthButton from "./AuthButton";
 import CartButton from "./CartButton";
 import { NavLink } from "./NavLink";
+
+const links = [
+  {
+    link: "/",
+    name: "Home",
+  },
+  {
+    link: "/products",
+    name: "Products",
+  },
+  {
+    link: "/admin",
+    name: "Dashboard",
+  },
+];
 
 export function Nav() {
   return (
@@ -18,8 +38,12 @@ export function Nav() {
           </div>
           <div className="hidden md:block">
             <div className="ml-10 flex items-baseline space-x-4 ">
-              <NavLink href="/">Home</NavLink>
-              <NavLink href="/products">Products</NavLink>
+              {links.map((link) => (
+                <NavLink key={link.name} href={link.link}>
+                  {link.name}
+                </NavLink>
+              ))}
+
               <CartButton />
               <AuthButton />
             </div>
@@ -51,10 +75,20 @@ export function Nav() {
                 </div>
               </SheetTrigger>
               <SheetContent side="right" className="w-[300px] sm:w-[400px]">
-                <nav className="flex flex-col gap-4 mt-5 text-center  font-bold">
-                  <NavLink href="/">Home</NavLink>
-                  <NavLink href="/products">Products</NavLink>
-                  <AuthButton />
+                <nav className="flex flex-col gap-4 mt-5 text-center font-bold">
+                  {links.map((link) => (
+                    <NavLink
+                      key={link.name}
+                      href={link.link}
+                      className="w-full"
+                    >
+                      <SheetClose className="w-full">{link.name}</SheetClose>
+                    </NavLink>
+                  ))}
+
+                  <SheetClose className="w-full">
+                    <AuthButton />
+                  </SheetClose>
                 </nav>
               </SheetContent>
             </Sheet>

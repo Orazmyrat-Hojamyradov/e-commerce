@@ -27,7 +27,8 @@ export function ProductCard(data: ProductCardProps) {
           className="p-4"
           priority
           src={data.imagePath}
-          fill
+          height={400}
+          width={400}
           alt={data.name}
         />
       </div>

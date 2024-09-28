@@ -1,55 +1,80 @@
+//example of making cart w cookies
+
 "use server";
 
-import { ProductCardProps } from "@/app/components/ProductCard";
-import { revalidatePath } from "next/cache";
-import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
+import db from "@/db/db";
+import { cache } from "../cache";
+import { User } from "@prisma/client";
 
-export async function AddToCart(data: ProductCardProps) {
-  const cookieStore = cookies();
-  const cartCookie = cookieStore.get("cart-oraz");
+// import { ProductCardProps } from "@/app/components/ProductCard";
+// import { revalidatePath } from "next/cache";
+// import { cookies } from "next/headers";
+// import { redirect } from "next/navigation";
 
-  const ParsedArr: ProductCardProps[] = cartCookie
-    ? JSON.parse(cartCookie.value)
-    : [];
+// export async function AddToCart(data: ProductCardProps) {
+//   const cookieStore = cookies();
+//   const cartCookie = cookieStore.get("cart-oraz");
 
-  const updatedArr = [...ParsedArr, data];
+//   const ParsedArr: ProductCardProps[] = cartCookie
+//     ? JSON.parse(cartCookie.value)
+//     : [];
 
-  cookieStore.set("cart-oraz", JSON.stringify(updatedArr), {
-    path: "/",
-    maxAge: 60 * 60 * 24 * 30, // 30 days
-  });
+//   const updatedArr = [...ParsedArr, data];
 
-  console.log("Element added to cart", data);
+//   cookieStore.set("cart-oraz", JSON.stringify(updatedArr), {
+//     path: "/",
+//     maxAge: 60 * 60 * 24 * 30, // 30 days
+//   });
 
-  revalidatePath("/");
-  redirect("/");
-}
+//   console.log("Element added to cart", data);
 
-export async function GetCart() {
-  const cartCookie = cookies().get("cart-oraz");
-  console.log("Cart Cookie:", cartCookie);
+//   revalidatePath("/");
+//   redirect("/");
+// }
 
-  const CookieArr: ProductCardProps[] = cartCookie
-    ? JSON.parse(cartCookie.value)
-    : [];
+// export async function GetCart() {
+//   const cartCookie = cookies().get("cart-oraz");
+//   console.log("Cart Cookie:", cartCookie);
 
-  return CookieArr;
-}
+//   const CookieArr: ProductCardProps[] = cartCookie
+//     ? JSON.parse(cartCookie.value)
+//     : [];
 
-export async function DeleteFromCart(id: string) {
-  const cartCookie = cookies().get("cart-oraz");
+//   return CookieArr;
+// }
 
-  if (!cartCookie) return [];
+// export async function DeleteFromCart(id: string) {
+//   const cartCookie = cookies().get("cart-oraz");
 
-  const cartItems: ProductCardProps[] = JSON.parse(cartCookie.value || "[]");
+//   if (!cartCookie) return [];
 
-  const updatedArr = cartItems.filter((i) => i.id !== id);
+//   const cartItems: ProductCardProps[] = JSON.parse(cartCookie.value || "[]");
 
-  cookies().set("cart-oraz", JSON.stringify(updatedArr), {
-    path: "/",
-    maxAge: 60 * 60 * 24 * 30, // 30 days
-  });
+//   const updatedArr = cartItems.filter((i) => i.id !== id);
 
-  revalidatePath("/");
-}
+//   cookies().set("cart-oraz", JSON.stringify(updatedArr), {
+//     path: "/",
+//     maxAge: 60 * 60 * 24 * 30, // 30 days
+//   });
+
+//   revalidatePath("/");
+// }
+
+// ("use server");
+
+// export async function createUser(data: User) {
+//   try {
+//     return await db.user.create({
+//       data: {
+//         firstname: data.firstname,
+//         lastname: data.lastname,
+//         email: data.email,
+//         password: data.password,
+//         phone: data.phone,
+//       },
+//     });
+//   } catch (error) {
+//     console.error("Error creating user:", error);
+//     throw new Error("Failed to create user");
+//   }
+// }

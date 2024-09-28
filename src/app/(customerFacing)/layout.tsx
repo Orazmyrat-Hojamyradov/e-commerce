@@ -9,13 +9,13 @@ export default function Layout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <>
+    <div>
       <Nav />
 
       <div className="w-full my-6 px-6">
         {children}
         <ToastContainer />
       </div>
-    </>
+    </div>
   );
 }
