@@ -47,7 +47,6 @@ export default function SignUpForm() {
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors },
   } = useForm<InputType>({
     resolver: zodResolver(FormSchema),
@@ -58,7 +57,19 @@ export default function SignUpForm() {
 
     try {
       const result = await registerUser(userData);
-      toast.success("The User Registered Successfully.");
+
+      const signInResult = await signIn("credentials", {
+        redirect: false,
+        email: userData.email,
+        password: userData.password,
+      });
+
+      if (signInResult?.error) {
+        toast.error("Failed to sign in after registration.");
+        console.error("Sign-in error:", signInResult.error);
+      } else {
+        toast.success("The User Registered and Logged In Successfully.");
+      }
     } catch (error) {
       toast.error("Something Went Wrong!");
       console.error("Error registering user:", error);

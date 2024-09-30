@@ -79,7 +79,7 @@ export const CartDrawer: React.FC<React.PropsWithChildren<{}>> = ({
             </span>
           </div>
 
-          <Button className="w-full h-12 text-base">
+          <Button className="w-full h-12 text-base font-bold">
             Buy <ArrowRight className="w-5 ml-2" />
           </Button>
         </SheetFooter>

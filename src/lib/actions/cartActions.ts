@@ -1,10 +1,10 @@
 //example of making cart w cookies
 
-"use server";
+// "use server";
 
-import db from "@/db/db";
-import { cache } from "../cache";
-import { User } from "@prisma/client";
+// import db from "@/db/db";
+// import { cache } from "../cache";
+// import { User } from "@prisma/client";
 
 // import { ProductCardProps } from "@/app/components/ProductCard";
 // import { revalidatePath } from "next/cache";
