@@ -12,7 +12,7 @@ export default function CartItem({ product }: { product: any }) {
 
   return (
     <div className="relative w-full bg-black text-white flex flex-row justify-between items-center gap-2 p-3 rounded-2xl">
-      <div className="bg-gray-800 w-[85px] h-[85px] my-auto self-start hidden  md:block rounded-xl">
+      <div className="bg-zinc-500 w-[85px] h-[85px] my-auto self-start hidden  md:block rounded-xl">
         <Image
           width={85}
           height={85}

@@ -80,7 +80,7 @@ export const CartDrawer: React.FC<React.PropsWithChildren<{}>> = ({
           </div>
 
           <Button className="w-full h-12 text-base font-bold">
-            Buy <ArrowRight className="w-5 ml-2" />
+            Buy <ArrowRight className="w-5 ml-2 hover:ml-3 transition-all" />
           </Button>
         </SheetFooter>
       </SheetContent>

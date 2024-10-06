@@ -8,7 +8,7 @@ export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Orazmyrat Hojamyradov",
-  description: "My personal portfolio.",
+  description: "E-commerce store.",
 };
 
 export default function Layout({
