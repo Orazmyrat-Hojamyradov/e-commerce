@@ -21,10 +21,10 @@ export type ProductCardProps = {
 
 export function ProductCard(data: ProductCardProps) {
   return (
-    <Card className="flex overflow-hidden flex-col ">
+    <Card className="flex overflow-hidden flex-col">
       <div className="relative w-[60%] h-auto m-auto aspect-square">
         <Image
-          className="p-4"
+          className="p-4 h-full w-full"
           priority
           src={data.imagePath}
           height={400}
