@@ -12,7 +12,7 @@ export default function CartItem({ product }: { product: any }) {
 
   return (
     <div className="relative w-full bg-black text-white flex flex-row justify-between items-center gap-2 p-3 rounded-2xl">
-      <div className="bg-zinc-500 w-[85px] h-[85px] my-auto self-start hidden  md:block rounded-xl">
+      <div className="bg-zinc-500 w-[85px] h-[85px] my-auto p-2 self-start hidden  md:block rounded-xl">
         <Image
           width={85}
           height={85}
@@ -24,7 +24,7 @@ export default function CartItem({ product }: { product: any }) {
       <div className="flex flex-col items-left justify-center gap-1 flex-1">
         <span className="font-bold text-sm  md:text-xl">{product.name}</span>
         <span className="font-bold text-sm">${product.priceInCents / 100}</span>
-        <p>{product.descryption || "No description"}</p>
+        <p>{product.description || "No description"}</p>
       </div>
       <Button
         onClick={() => {

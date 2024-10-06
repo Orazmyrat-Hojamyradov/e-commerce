@@ -1,6 +1,4 @@
-import { Button } from "@/components/ui/button";
 import PageHeader from "../_components/PageHeader";
-import Link from "next/link";
 import {
   Table,
   TableBody,
@@ -9,31 +7,15 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import db from "@/db/db";
-import { CheckCircle2, MoreVertical, XCircle } from "lucide-react";
+import { CheckCircle2, XCircle } from "lucide-react";
 import { formatCurrency } from "@/lib/formatters";
-import {
-  DropdownMenu,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@radix-ui/react-dropdown-menu";
-import {
-  DropdownMenuContent,
-  DropdownMenuItem,
-} from "@/components/ui/dropdown-menu";
-import {
-  ActiveToggleDropdownItem,
-  DeleteToggleDropdownItem,
-} from "./_components/ProductActions";
+import { products } from "@/lib/data";
 
 export default function AdminProductPage() {
   return (
     <>
       <div className="flex justify-between items-center gap-4">
         <PageHeader>Products</PageHeader>
-        <Button asChild>
-          <Link href="/admin/products/new">Add Product</Link>
-        </Button>
       </div>
       <ProductsTable />
     </>
@@ -41,17 +23,6 @@ export default function AdminProductPage() {
 }
 
 async function ProductsTable() {
-  const products = await db.product.findMany({
-    select: {
-      id: true,
-      name: true,
-      priceInCents: true,
-      isAvailableForPurchase: true,
-      _count: { select: { orders: true } },
-    },
-    orderBy: { name: "asc" },
-  });
-
   if (products.length === 0) return <p>No products found</p>;
   return (
     <Table>
@@ -86,35 +57,8 @@ async function ProductsTable() {
             </TableCell>
             <TableCell>{product.name}</TableCell>
             <TableCell>{formatCurrency(product.priceInCents / 100)}</TableCell>
-            <TableCell>{formatCurrency(product._count.orders)}</TableCell>
             <TableCell>
-              <DropdownMenu>
-                <DropdownMenuTrigger>
-                  <MoreVertical />
-                  <span className="sr-only">Actions</span>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent>
-                  <DropdownMenuItem asChild>
-                    <a download href={`/admin/products/${product.id}/download`}>
-                      Download
-                    </a>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild>
-                    <Link href={`/admin/products/${product.id}/edit`}>
-                      Edit
-                    </Link>
-                  </DropdownMenuItem>
-                  <ActiveToggleDropdownItem
-                    id={product.id}
-                    isAvailableForPurchase={product.isAvailableForPurchase}
-                  />
-                  <DropdownMenuSeparator />
-                  <DeleteToggleDropdownItem
-                    id={product.id}
-                    disabled={product._count.orders > 0}
-                  />
-                </DropdownMenuContent>
-              </DropdownMenu>
+              {formatCurrency((product.priceInCents / 100) * 2)}
             </TableCell>
           </TableRow>
         ))}

@@ -10,16 +10,17 @@ import {
 import { formatCurrency } from "@/lib/formatters";
 import Image from "next/image";
 import AddToCartButton from "./AddToCartBtn";
+import { Product } from "@/lib/data";
 
-export type ProductCardProps = {
-  id: string;
-  name: string;
-  priceInCents: number;
-  descryption: string;
-  imagePath: string;
-};
+// export type ProductCardProps = {
+//   id: string;
+//   name: string;
+//   priceInCents: number;
+//   descryption: string;
+//   imagePath: string;
+// };
 
-export function ProductCard(data: ProductCardProps) {
+export function ProductCard(data: Product) {
   return (
     <Card className="flex overflow-hidden flex-col">
       <div className="relative w-[60%] h-auto m-auto aspect-square">
@@ -39,7 +40,7 @@ export function ProductCard(data: ProductCardProps) {
         </CardDescription>
       </CardHeader>
       <CardContent className="flex-grow">
-        <p className="line-clamp-4">{data.descryption}</p>
+        <p className="line-clamp-4">{data.description}</p>
       </CardContent>
       <CardFooter>
         <AddToCartButton product={data} />

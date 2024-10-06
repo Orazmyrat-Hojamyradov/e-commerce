@@ -6,23 +6,25 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
 import PasswordInput from "./PasswordInput";
 import { Button } from "@/components/ui/button";
-import { signIn } from "next-auth/react";
+import { signIn, signOut } from "next-auth/react"; // Import signOut if you want to allow signing out too
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import { Github } from "lucide-react";
 import { FcGoogle } from "react-icons/fc";
+import { users } from "@/lib/data"; // Import the users array
 
 interface Props {
   callbackUrl?: string;
 }
 
+// Validation schema using Zod
 const FormSchema = z.object({
   email: z.string().email("Please enter a valid email address!"),
   password: z
     .string({
       required_error: "Please enter your password.",
     })
-    .min(6, "Password should be at least 6 digits"),
+    .min(6, "Password should be at least 6 characters"),
 });
 
 type InputType = z.infer<typeof FormSchema>;
@@ -38,55 +40,39 @@ export default function SignInForm(props: Props) {
   });
 
   const onSubmit: SubmitHandler<InputType> = async (data) => {
-    const result = await signIn("credentials", {
-      redirect: false,
-      username: data.email,
-      password: data.password,
-    });
-    if (!result?.ok) {
-      toast.error(result?.error);
+    // Check the user in the JSON array (mocking a database check)
+    const user = users.find(
+      (u) => u.email === data.email && u.password === data.password
+    );
+
+    if (!user) {
+      toast.error("Invalid email or password!");
       return;
     }
-    toast.success("Success!");
-    router.push("/");
+
+    // Here, you can add any logic to create a session
+    // You might want to use next-auth's session management instead
+    const signInResult = await signIn("credentials", {
+      redirect: false,
+      email: data.email,
+      password: data.password,
+    });
+
+    if (signInResult?.error) {
+      toast.error("Sign-in failed. Please try again.");
+    } else {
+      toast.success("Signed in successfully!");
+      // Redirect to the homepage or dashboard
+      router.push(props.callbackUrl || "/");
+    }
   };
 
   return (
-    <div className="p-2 m-2 gap-2 flex flex-col items-center justify-center w-full md:w-[50%]  ">
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="space-y-3 p-2 shadow border rounded-md w-full"
-      >
-        <Input
-          className="w-full"
-          placeholder="Email"
-          {...register("email")}
-          error={errors.email?.message}
-        />
-        <PasswordInput
-          text="Password"
-          {...register("password")}
-          error={errors.password?.message}
-        />
-        <Button type="submit" disabled={isSubmitting} className="w-full">
-          {isSubmitting ? "Signing in..." : "Submit"}
-        </Button>
-      </form>
-      <span className="text-center text-muted-foreground">or</span>
-      <Button
-        onClick={() => {
-          signIn("github");
-        }}
-        className="w-full"
-      >
+    <div className="p-2 m-2 gap-2 flex flex-col items-center justify-center w-full md:w-[50%]">
+      <Button onClick={() => signIn("github")} className="w-[30%]">
         Sign in with Github <Github size={25} className="ml-4" />
       </Button>
-      <Button
-        onClick={() => {
-          signIn("google");
-        }}
-        className="w-full"
-      >
+      <Button onClick={() => signIn("google")} className="w-[30%]">
         Sign in with Google <FcGoogle size={25} className="ml-4" />
       </Button>
     </div>

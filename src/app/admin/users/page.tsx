@@ -6,27 +6,9 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import db from "@/db/db";
 import { formatCurrency, formatNumber } from "@/lib/formatters";
 import PageHeader from "../_components/PageHeader";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { MoreVertical } from "lucide-react";
-import { DeleteDropDownItem } from "./_components/UserActions";
-
-function getUsers() {
-  return db.user.findMany({
-    select: {
-      id: true,
-      email: true,
-      orders: { select: { pricePaidInCents: true } },
-    },
-    orderBy: { createdAt: "desc" },
-  });
-}
+import { users } from "@/lib/data";
 
 export default function UsersPage() {
   return (
@@ -38,8 +20,6 @@ export default function UsersPage() {
 }
 
 async function UsersTable() {
-  const users = await getUsers();
-
   if (users.length === 0) return <p>No customers found</p>;
 
   return (
@@ -55,27 +35,11 @@ async function UsersTable() {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {users.map((user) => (
+        {users.map((user, i) => (
           <TableRow key={user.id}>
             <TableCell>{user.email}</TableCell>
-            <TableCell>{formatNumber(user.orders.length)}</TableCell>
-            <TableCell>
-              {formatCurrency(
-                user.orders.reduce((sum, o) => o.pricePaidInCents + sum, 0) /
-                  100
-              )}
-            </TableCell>
-            <TableCell className="text-center">
-              <DropdownMenu>
-                <DropdownMenuTrigger>
-                  <MoreVertical />
-                  <span className="sr-only">Actions</span>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent>
-                  <DeleteDropDownItem id={user.id} />
-                </DropdownMenuContent>
-              </DropdownMenu>
-            </TableCell>
+            <TableCell>{formatNumber(users.length - i)}</TableCell>
+            <TableCell>{formatCurrency(i * 5)}</TableCell>
           </TableRow>
         ))}
       </TableBody>

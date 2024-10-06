@@ -1,57 +1,25 @@
 import { Button } from "@/components/ui/button";
-import db from "@/db/db";
-import { Product } from "@prisma/client";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { ProductCard, ProductCardSkeleton } from "../components/ProductCard";
 import { Suspense } from "react";
-import { cache } from "@/lib/cache";
-
-const getMostPopularProducts = cache(
-  () => {
-    return db.product.findMany({
-      where: { isAvailableForPurchase: true },
-      orderBy: {
-        orders: { _count: "desc" },
-      },
-      take: 6,
-    });
-  },
-  ["/", "getMostPopularProducts"],
-  { revalidate: 60 * 60 * 24 }
-);
-
-const getNewestProducts = cache(() => {
-  return db.product.findMany({
-    where: { isAvailableForPurchase: true },
-    orderBy: {
-      createdAt: "desc",
-    },
-    take: 6,
-  });
-}, ["/", "getNewestProducts"]);
+import { products, Product } from "@/lib/data";
 
 export default function HomePage() {
   return (
     <main className="space-y-12">
-      <ProductGridSection
-        title="Most Popular"
-        productsFetcher={getMostPopularProducts}
-      />
-      <ProductGridSection title="Newest" productsFetcher={getNewestProducts} />
+      <ProductGridSection title="Most Popular" productsFetcher={products} />
+      <ProductGridSection title="Newest" productsFetcher={products} />
     </main>
   );
 }
 
 type ProductGridSectionProps = {
   title: string;
-  productsFetcher: () => Promise<Product[]>;
+  productsFetcher: Product[];
 };
 
-function ProductGridSection({
-  productsFetcher,
-  title,
-}: ProductGridSectionProps) {
+function ProductGridSection({ title }: ProductGridSectionProps) {
   return (
     <div className="space-y-4">
       <div className="flex gap-4">
@@ -73,19 +41,15 @@ function ProductGridSection({
             </div>
           }
         >
-          <ProductSuspense productFetcher={productsFetcher} />
+          <ProductSuspense productFetcher={products} />
         </Suspense>
       </div>
     </div>
   );
 }
 
-async function ProductSuspense({
-  productFetcher,
-}: {
-  productFetcher: () => Promise<Product[]>;
-}) {
-  return (await productFetcher()).map((product: any) => (
-    <ProductCard key={product.id} {...product} />
-  ));
+async function ProductSuspense({}: { productFetcher: Product[] }) {
+  return products
+    .slice(2)
+    .map((product: Product) => <ProductCard key={product.id} {...product} />);
 }

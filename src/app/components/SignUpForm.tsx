@@ -7,12 +7,13 @@ import validator from "validator";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import PasswordInput from "./PasswordInput";
-import { registerUser } from "@/lib/actions/authActions";
 import { toast } from "react-toastify";
 import { Github } from "lucide-react";
 import { signIn } from "next-auth/react";
 import { FcGoogle } from "react-icons/fc";
+import { users } from "@/lib/data"; // Import the users array
 
+// Validation schema using Zod
 const FormSchema = z
   .object({
     firstname: z
@@ -56,8 +57,23 @@ export default function SignUpForm() {
     const { confirmPassword, ...userData } = data;
 
     try {
-      const result = await registerUser(userData);
+      // Check if the user already exists
+      const existingUser = users.find((user) => user.email === userData.email);
 
+      if (existingUser) {
+        toast.error("User with this email already exists.");
+        return;
+      }
+
+      // Add new user to the users array
+      users.push({
+        id: users.length + 1, // Automatically assign an ID
+        ...userData,
+      });
+
+      toast.success("User Registered Successfully.");
+
+      // Simulate sign-in after successful registration
       const signInResult = await signIn("credentials", {
         redirect: false,
         email: userData.email,
@@ -68,7 +84,7 @@ export default function SignUpForm() {
         toast.error("Failed to sign in after registration.");
         console.error("Sign-in error:", signInResult.error);
       } else {
-        toast.success("The User Registered and Logged In Successfully.");
+        toast.success("User Logged In Successfully.");
       }
     } catch (error) {
       toast.error("Something Went Wrong!");
@@ -78,47 +94,6 @@ export default function SignUpForm() {
 
   return (
     <div className="p-2 m-2 gap-2 flex flex-col items-center justify-center ">
-      <form
-        onSubmit={handleSubmit(saveUser)}
-        className="grid grid-cols-2 gap-3 p-2 shadow border rounded-md"
-      >
-        <Input
-          error={errors.firstname?.message}
-          {...register("firstname")}
-          placeholder="First Name"
-        />
-        <Input
-          error={errors.lastname?.message}
-          {...register("lastname")}
-          placeholder="Last Name"
-        />
-        <Input
-          error={errors.email?.message}
-          {...register("email")}
-          className="col-span-2"
-          placeholder="Email"
-        />
-        <Input
-          error={errors.phone?.message}
-          {...register("phone")}
-          className="col-span-2"
-          placeholder="Phone"
-        />
-        <PasswordInput
-          error={errors.password?.message}
-          {...register("password")}
-          text="Password"
-        />
-        <PasswordInput
-          error={errors.confirmPassword?.message}
-          {...register("confirmPassword")}
-          text="Confirm Password"
-        />
-        <Button type="submit" color="primary" className="col-span-2">
-          Submit
-        </Button>
-      </form>
-      <span className="text-center text-muted-foreground col-span-2">or</span>
       <Button
         onClick={() => {
           signIn("github");
