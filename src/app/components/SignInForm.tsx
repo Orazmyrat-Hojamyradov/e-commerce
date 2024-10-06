@@ -68,11 +68,11 @@ export default function SignInForm(props: Props) {
   };
 
   return (
-    <div className="p-2 m-2 gap-2 flex flex-col items-center justify-center w-full md:w-[50%]">
-      <Button onClick={() => signIn("github")} className="w-[30%]">
+    <div className="p-2 m-2 gap-2 flex flex-col items-center justify-center">
+      <Button onClick={() => signIn("github")} className="w-full">
         Sign in with Github <Github size={25} className="ml-4" />
       </Button>
-      <Button onClick={() => signIn("google")} className="w-[30%]">
+      <Button onClick={() => signIn("google")} className="w-full">
         Sign in with Google <FcGoogle size={25} className="ml-4" />
       </Button>
     </div>

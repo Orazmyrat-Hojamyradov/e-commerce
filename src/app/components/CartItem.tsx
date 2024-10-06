@@ -32,7 +32,7 @@ export default function CartItem({ product }: { product: any }) {
         }}
         asChild
         variant="destructive"
-        className="w-[23px] h-[23px] absolute top-2 right-2 p-0 cursor-pointer"
+        className="w-[20px] h-[20px] rounded-full absolute top-1 right-1 p-0 cursor-pointer"
       >
         <X size={20} />
       </Button>
