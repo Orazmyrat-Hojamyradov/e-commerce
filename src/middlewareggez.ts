@@ -1,4 +1,4 @@
-"use server";
+// "use server";
 
 // import { NextRequest, NextResponse } from "next/server";
 // import { isValidPassword } from "./lib/isValidPassword";
@@ -32,8 +32,8 @@
 //   matcher: "/admin/:path*",
 // };
 
-export { default } from "next-auth/middleware";
+// export { default } from "next-auth/middleware";
 
-export const config = {
-  matcher: ["/admin/:path*", "/orders"],
-};
+// export const config = {
+//   matcher: ["/admin/:path*"],
+// };
