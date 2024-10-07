@@ -50,8 +50,6 @@ export default function SignInForm(props: Props) {
       return;
     }
 
-    // Here, you can add any logic to create a session
-    // You might want to use next-auth's session management instead
     const signInResult = await signIn("credentials", {
       redirect: false,
       email: data.email,
@@ -62,7 +60,6 @@ export default function SignInForm(props: Props) {
       toast.error("Sign-in failed. Please try again.");
     } else {
       toast.success("Signed in successfully!");
-      // Redirect to the homepage or dashboard
       router.push(props.callbackUrl || "/");
     }
   };

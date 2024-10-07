@@ -1,11 +1,12 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { ProductCardProps } from "./ProductCard";
+import { Product } from "@/lib/data";
+
 import { useCartStore } from "@/lib/storeCart";
 
 type AddToCartButtonProps = {
-  product: ProductCardProps;
+  product: Product;
 };
 
 export default function AddToCartButton({ product }: AddToCartButtonProps) {

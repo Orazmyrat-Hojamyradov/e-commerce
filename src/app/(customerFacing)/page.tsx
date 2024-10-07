@@ -49,7 +49,7 @@ function ProductGridSection({ title }: ProductGridSectionProps) {
 }
 
 async function ProductSuspense({}: { productFetcher: Product[] }) {
-  return products
-    .slice(2)
-    .map((product: Product) => <ProductCard key={product.id} {...product} />);
+  return products.map((product: Product) => (
+    <ProductCard key={product.id} {...product} />
+  ));
 }
