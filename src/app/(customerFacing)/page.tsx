@@ -6,10 +6,13 @@ import { Suspense } from "react";
 import { products, Product } from "@/lib/data";
 
 export default function HomePage() {
+  const newestProducts: Product[] = [...products].sort(
+    (a, b) => b.createdAt.getTime() - a.createdAt.getTime()
+  );
   return (
     <main className="space-y-12">
       <ProductGridSection title="Most Popular" productsFetcher={products} />
-      <ProductGridSection title="Newest" productsFetcher={products} />
+      <ProductGridSection title="Newest" productsFetcher={newestProducts} />
     </main>
   );
 }
@@ -19,7 +22,10 @@ type ProductGridSectionProps = {
   productsFetcher: Product[];
 };
 
-function ProductGridSection({ title }: ProductGridSectionProps) {
+function ProductGridSection({
+  title,
+  productsFetcher,
+}: ProductGridSectionProps) {
   return (
     <div className="space-y-4">
       <div className="flex gap-4">
@@ -41,15 +47,15 @@ function ProductGridSection({ title }: ProductGridSectionProps) {
             </div>
           }
         >
-          <ProductSuspense productFetcher={products} />
+          <ProductSuspense productFetcher={productsFetcher} />
         </Suspense>
       </div>
     </div>
   );
 }
 
-async function ProductSuspense({}: { productFetcher: Product[] }) {
-  return products.map((product: Product) => (
+function ProductSuspense({ productFetcher }: { productFetcher: Product[] }) {
+  return productFetcher.map((product: Product) => (
     <ProductCard key={product.id} {...product} />
   ));
 }

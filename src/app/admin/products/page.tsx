@@ -1,3 +1,5 @@
+"use client";
+
 import PageHeader from "../_components/PageHeader";
 import {
   Table,
@@ -10,8 +12,23 @@ import {
 import { CheckCircle2, XCircle } from "lucide-react";
 import { formatCurrency } from "@/lib/formatters";
 import { products } from "@/lib/data";
+import Link from "next/link";
+import { useSession } from "next-auth/react";
 
 export default function AdminProductPage() {
+  const { data: session } = useSession();
+
+  if (!session)
+    return (
+      <div className="w-full h-full text-center">
+        <Link
+          href="/auth/signup"
+          className="w-full font-bold text-2xl text-center"
+        >
+          Sign In to see this page
+        </Link>
+      </div>
+    );
   return (
     <>
       <div className="flex justify-between items-center gap-4">
@@ -24,6 +41,7 @@ export default function AdminProductPage() {
 
 async function ProductsTable() {
   if (products.length === 0) return <p>No products found</p>;
+
   return (
     <Table>
       <TableHeader>

@@ -7,7 +7,7 @@ export const products = [
     imagePath: "/products/next.svg",
     description: "Feature-rich dashboard built with Next.js",
     isAvailableForPurchase: true,
-    createdAt: "01.09.2024",
+    createdAt: new Date("2024-09-01"),
   },
   {
     id: 2,
@@ -17,7 +17,7 @@ export const products = [
     imagePath: "/products/react.svg",
     description: "Admin panel built with React and Material UI",
     isAvailableForPurchase: true,
-    createdAt: "05.09.2024",
+    createdAt: new Date("2024-09-05"),
   },
   {
     id: 3,
@@ -27,7 +27,7 @@ export const products = [
     imagePath: "/products/nodejs-logo-svgrepo-com.svg",
     description: "RESTful API using Node.js and Express",
     isAvailableForPurchase: true,
-    createdAt: "10.09.2024",
+    createdAt: new Date("2024-09-10"),
   },
   {
     id: 4,
@@ -37,7 +37,7 @@ export const products = [
     imagePath: "/products/graphql-svgrepo-com.svg",
     description: "GraphQL server with Apollo and Node.js",
     isAvailableForPurchase: true,
-    createdAt: "12.09.2024",
+    createdAt: new Date("2024-09-12"),
   },
   {
     id: 5,
@@ -47,7 +47,7 @@ export const products = [
     imagePath: "/products/vue-svgrepo-com.svg",
     description: "Complete e-commerce platform built with Vue.js",
     isAvailableForPurchase: false,
-    createdAt: "15.09.2024",
+    createdAt: new Date("2024-09-15"),
   },
   {
     id: 6,
@@ -57,7 +57,7 @@ export const products = [
     imagePath: "/products/svelte-svgrepo-com.svg",
     description: "Personal portfolio template using SvelteKit",
     isAvailableForPurchase: true,
-    createdAt: "18.09.2024",
+    createdAt: new Date("2024-09-18"),
   },
   {
     id: 7,
@@ -67,7 +67,7 @@ export const products = [
     imagePath: "/products/angular-icon-svgrepo-com.svg",
     description: "Admin template built with Angular and TailwindCSS",
     isAvailableForPurchase: true,
-    createdAt: "20.09.2024",
+    createdAt: new Date("2024-09-20"),
   },
   {
     id: 8,
@@ -77,7 +77,7 @@ export const products = [
     imagePath: "/products/python-svgrepo-com.svg",
     description: "Blog platform developed with Django and Python",
     isAvailableForPurchase: true,
-    createdAt: "25.09.2024",
+    createdAt: new Date("2024-09-25"),
   },
 ];
 
@@ -89,7 +89,7 @@ export type Product = {
   imagePath: string;
   description: string;
   isAvailableForPurchase: boolean;
-  createdAt: string;
+  createdAt: Date;
 };
 
 export type User = {

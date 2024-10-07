@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Card,
   CardContent,
@@ -6,8 +8,23 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { products } from "@/lib/data";
+import { useSession } from "next-auth/react";
+import Link from "next/link";
 
-export default async function AdminDashboard() {
+export default function AdminDashboard() {
+  const { data: session } = useSession();
+
+  if (!session)
+    return (
+      <div className="w-full h-full text-center">
+        <Link
+          href="/auth/signup"
+          className="w-full font-bold text-2xl text-center"
+        >
+          Sign In to see this page
+        </Link>
+      </div>
+    );
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
       <DashboardCardProps
