@@ -17,7 +17,7 @@ export default function OauthForm() {
       () =>
         swal({
           text: "Logged In successfully",
-          icon: "Success",
+          icon: "success",
         }),
       1500
     );
