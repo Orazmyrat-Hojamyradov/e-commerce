@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Product } from "@/lib/data";
-
+import swal from "sweetalert";
 import { useCartStore } from "@/lib/storeCart";
 
 type AddToCartButtonProps = {
@@ -14,6 +14,10 @@ export default function AddToCartButton({ product }: AddToCartButtonProps) {
 
   const handleAddToCart = () => {
     addToCart(product);
+    swal({
+      text: "Successfully added to Cart",
+      icon: "success",
+    });
   };
 
   return (

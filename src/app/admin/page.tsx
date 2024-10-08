@@ -18,7 +18,7 @@ export default function AdminDashboard() {
     return (
       <div className="w-full h-full text-center">
         <Link
-          href="/auth/signup"
+          href="/auth/signin"
           className="w-full font-bold text-2xl text-center"
         >
           Sign In to see this page

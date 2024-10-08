@@ -5,7 +5,7 @@ import { persist } from "zustand/middleware";
 type CartState = {
   cartItems: ProductCardProps[];
   addToCart: (product: ProductCardProps) => void;
-  removeFromCart: (id: string) => void;
+  removeFromCart: (id: number) => void;
 };
 
 export const useCartStore = create<CartState>()(

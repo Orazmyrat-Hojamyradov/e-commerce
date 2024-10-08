@@ -2,6 +2,7 @@
 
 import {
   Sheet,
+  SheetClose,
   SheetContent,
   SheetFooter,
   SheetHeader,
@@ -60,10 +61,10 @@ export const CartDrawer: React.FC<React.PropsWithChildren<{}>> = ({
         ) : (
           <Button asChild>
             <Link
-              href="/auth/signup"
+              href="/auth/signin"
               className="text-center font-bold my-auto text-lg md:text-xl"
             >
-              Sign Up To Use Cart
+              <SheetClose>Sign Up To See Your Cart</SheetClose>
             </Link>
           </Button>
         )}

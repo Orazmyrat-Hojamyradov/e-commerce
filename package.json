@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "prisma generate &&  next build",
+    "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "prisma:push": "prisma db push",
@@ -41,6 +41,7 @@
     "react-toastify": "^10.0.5",
     "scss": "^0.2.4",
     "stripe": "^16.10.0",
+    "sweetalert": "^2.1.2",
     "tailwind-merge": "^2.5.2",
     "tailwindcss-animate": "^1.0.7",
     "validator": "^13.12.0",

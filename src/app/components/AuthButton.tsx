@@ -25,7 +25,7 @@ export default function AuthButton() {
           className="w-[95%] text-lg  rounded-3xl transition-all p-2"
           asChild
         >
-          <Link href="/auth/signup">Sign Up</Link>
+          <Link href="/auth/signin">Sign Up</Link>
         </Button>
       )}
     </>

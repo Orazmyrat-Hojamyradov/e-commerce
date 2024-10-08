@@ -12,13 +12,13 @@ import Image from "next/image";
 import AddToCartButton from "./AddToCartBtn";
 import { Product } from "@/lib/data";
 
-// export type ProductCardProps = {
-//   id: string;
-//   name: string;
-//   priceInCents: number;
-//   descryption: string;
-//   imagePath: string;
-// };
+export type ProductCardProps = {
+  id: number;
+  name: string;
+  priceInCents: number;
+  description: string;
+  imagePath: string;
+};
 
 export function ProductCard(data: Product) {
   return (
