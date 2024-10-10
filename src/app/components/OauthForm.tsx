@@ -1,26 +1,34 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { signIn } from "next-auth/react"; // Import signOut if you want to allow signing out too
+import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { ArrowLeft, Github } from "lucide-react";
 import { FcGoogle } from "react-icons/fc";
 import { useSession } from "next-auth/react";
+import swal from "sweetalert";
 
 export default function OauthForm() {
   const { data: session } = useSession();
   const router = useRouter();
 
   const handleSignIn = async (provider: string) => {
-    await signIn(provider, { redirect: false });
-    setTimeout(
-      () =>
-        swal({
-          text: "Logged In successfully",
-          icon: "success",
-        }),
-      1500
-    );
+    if (session) {
+      swal({
+        text: "You are already logged in",
+        icon: "warning",
+      });
+    } else {
+      await signIn(provider, { redirect: false });
+      setTimeout(
+        () =>
+          swal({
+            text: "Logged In successfully",
+            icon: "success",
+          }),
+        1500
+      );
+    }
   };
 
   return (
